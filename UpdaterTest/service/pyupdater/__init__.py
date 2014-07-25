@@ -1,0 +1,7 @@
+SERVICE_PATH = '/updater'
+CLIENT_PORT = 13761
+SERVICE_PORT = 13762
+
+MESSAGE_DO_UPDATE = 'do-update'
+MESSAGE_UPDATE_AVAILABLE = 'update-available'
+MESSAGE_CHECK_FOR_UPDATE = 'check-for-update'
