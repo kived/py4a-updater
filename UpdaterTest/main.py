@@ -86,6 +86,9 @@ class UpdaterApp(App):
 		self.service = AndroidService('updater', 'running')
 		self.service.start('start')
 		return UpdaterUI(client=UpdateClient())
+	
+	def on_pause(self):
+		return True
 
 if __name__ == '__main__':
 	UpdaterApp().run()
