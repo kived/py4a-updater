@@ -20,7 +20,6 @@ class UpdateFailedException(Exception):
 	def __init__(self, output):
 		reason = 'FAILED'
 		if isinstance(output, basestring):
-			assert isinstance(output, str)
 			output = output.strip()
 			if output[-1] == ']' and '[' in output:
 				reason = output[output.rindex('[') + 1:-1]
