@@ -40,6 +40,7 @@ class Updater(object):
 		self.available_version = None
 		self.available_version_number = ''
 		self.current_version = None
+		self.downloaded_version = None
 		self.frequency = frequency
 		self.last_check = None
 		self.downloadurl = None
@@ -61,7 +62,7 @@ class Updater(object):
 		oscid = osc.listen('127.0.0.1', SERVICE_PORT)
 		osc.bind(oscid, self.recv_osc, SERVICE_PATH)
 		print 'listening for OSC'
-		self.current_version = self.get_current_version()
+		self.current_version = self.downloaded_version = self.get_current_version()
 		
 		while True:
 			if not self.last_check or (self.last_check + self.frequency) < time():
@@ -90,7 +91,7 @@ class Updater(object):
 			self.downloadurl = dlurl
 			
 			print 'found version', self.available_version, '(current version %d)' % self.current_version
-			return self.available_version > self.current_version
+			return self.available_version > self.downloaded_version
 		except Exception:
 			print 'check for update failed!'
 			traceback.print_exc()
@@ -122,6 +123,7 @@ class Updater(object):
 				f.write(update)
 			self.downloadfile = dlfile
 			print 'download successful'
+			self.downloaded_version = self.available_version
 			self.dlready.set()
 		except Exception:
 			print 'download failed!'
